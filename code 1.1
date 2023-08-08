@@ -1,0 +1,56 @@
+import os
+import random
+
+def guessing_attempts():
+  if game_mode == "easy":
+    attempts_left = 10
+    return attempts_left
+  if game_mode == "hard":
+    attempts_left = 5
+    return attempts_left
+
+def evaluate_number():
+  global chosen_number
+  global computer_number
+  global attempts_left
+  global guessed
+  if chosen_number > computer_number:
+    print("Number is to high!")
+    attempts_left -= 1
+  elif chosen_number < computer_number:
+    print("Number is to low!")
+    attempts_left -= 1
+  elif chosen_number == computer_number:
+    print(f"You guessed the number!: {computer_number}")
+    guessed = True
+
+
+print("Welcome to the number guessing game\nI'm thinking of a number between 1 and 100.")
+
+attempts_left = 0
+computer_number = random.randint(0, 101)
+
+continue_ = True
+while continue_:
+  game_mode = input("Choose the difficulty. Type 'easy' or 'hard' ")
+  
+  guessing_attempts()
+  attempts_left += guessing_attempts()
+  
+  guessed = False
+  
+  while not guessed:
+    
+    chosen_number = int(input(f"You have {attempts_left} attempts remaining to guess the number\nMake a guess: "))
+    
+    evaluate_number()
+    if attempts_left == 0:
+      guessed = True
+    
+  continue_ = input("Would you like to guess another number 'n' or 'y': ")
+  
+  if continue_ == "y":
+    attempts_left = 0
+    gueessed = False
+  elif continue_ == "n": 
+    print("Thank you for playing, have a good day! ")
